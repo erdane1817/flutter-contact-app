@@ -111,21 +111,21 @@ class KontakPage extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.person),
                 title: Text("Big Boss"),
-                subtitle: Text("081234567890"),
+                subtitle: Text("08123456789"),
               ),
             ),
             Card(
               child: ListTile(
                 leading: Icon(Icons.person),
                 title: Text("Byby"),
-                subtitle: Text("0821345678901"),
+                subtitle: Text("081234567890"),
               ),
             ),
             Card(
               child: ListTile(
                 leading: Icon(Icons.person),
                 title: Text("Pinjaman Online"),
-                subtitle: Text("085436789012"),
+                subtitle: Text("081345678901"),
               ),
             ),
           ],
