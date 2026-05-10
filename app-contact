@@ -1,0 +1,139 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Kontak App',
+      home: const KontakPage(),
+    );
+  }
+}
+
+class KontakPage extends StatefulWidget {
+  const KontakPage({super.key});
+
+  @override
+  State<KontakPage> createState() => _KontakPageState();
+}
+
+class _KontakPageState extends State<KontakPage> {
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController nomorController = TextEditingController();
+
+  List<Map<String, String>> daftarKontak = [
+    {"nama": "Big Boss", "nomor": "08123456789"},
+    {"nama": "Byby", "nomor": "081234567890"},
+    {"nama": "Pinjaman Online", "nomor": "081345678901"},
+  ];
+
+  void tambahKontak() {
+    if (namaController.text.isNotEmpty &&
+        nomorController.text.isNotEmpty) {
+      setState(() {
+        daftarKontak.add({
+          "nama": namaController.text,
+          "nomor": nomorController.text,
+        });
+      });
+
+      namaController.clear();
+      nomorController.clear();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Aplikasi Kontak"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Container(
+          width: width > 700 ? 500 : double.infinity,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Tambah Kontak",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              TextField(
+                controller: namaController,
+                decoration: const InputDecoration(
+                  labelText: "Nama Kontak",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              TextField(
+                controller: nomorController,
+                decoration: const InputDecoration(
+                  labelText: "Nomor HP",
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.phone,
+              ),
+
+              const SizedBox(height: 16),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: tambahKontak,
+                  child: const Text("Tambah Kontak"),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              const Text(
+                "Daftar Kontak",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: daftarKontak.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.person),
+                        title: Text(daftarKontak[index]["nama"]!),
+                        subtitle: Text(daftarKontak[index]["nomor"]!),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
